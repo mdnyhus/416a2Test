@@ -746,11 +746,11 @@ func main() {
 		return
 	}
 	go server.Accept(l)
+	go dfsServer.receiveHeartbeat()
+
 	fmt.Println("accepting")
-	dfsServer.receiveHeartbeat()
 
+	//for {
 
-	// for {
-
-	// }
+	//}
 }
