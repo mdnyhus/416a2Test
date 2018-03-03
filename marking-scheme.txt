@@ -1,0 +1,253 @@
+Total mark: [0/100]
+---------------------------------------------------
+
+Late penalty: 0
+
+Connected operation [0/100]
+* Simple open: Client mounts DFS, opens a file, closes it, and then unmounts DFS [0/100]
+* Simple read: Client mounts DFS, opens a file, reads it, closes it, and then unmounts DFS [0/100]
+* Simple write: Client mounts DFS, opens a file, writes to it, reads it, closes it, and then unmounts DFS. [0/100]
+* Simple LocalFileExists: Client mounts DFS, opens a file, closes it, calls LocalFileExists on the file name, and then unmounts DFS [0/100]
+* Simple GlobalFileExists: Client mounts DFS, opens a file, closes it, calls GlobalFileExists on the file name, and then unmounts DFS [0/100]
+* Single client: Client A mounts DFS, opens an invalid file, opens a valid file, reads it, writes it, reads the content back, closes it, and unmounts DFS; client B mounts DFS, calls GlobalFileExists on the file name, cals LocalFileExists on the file name, opens the file, and then unmounts DFS [0/100]
+* One client is able to observe writes from another client (single write operation) [0/100]
+* One client is able to observe writes from another client (double write operation) [0/100]
+* Handling multiple clients attempting to open a file for writing [0/100]
+* Multiple reader clients and one writer client; One client opens for writing, other clients check global file exists [0/100]
+* Multiple reader clients and one writer client; One client opens for writing, other clients open for reading. First client performs three writes, other clients read after each write. [0/100]
+* Multiple reader clients and one writer client; First client writes file, other clients read the changes, first client closes the file. Repeated for each client [0/100]
+
+Disconnected operation [0/100]
+* Client writes file, disconnects; can use DREAD while disconnected [0/100]
+* Client writes file, disconnects; can LocalFileExists while disconnected [0/100]
+* Unobservable transitory disconnections [0/100]
+* Client A opens file F for writing, disconnects. Client B connects and opens F for writing, succeeds [0/100]
+* Client B opens file. Client A writes/closes file, disconnects. Client B writes file. Client A re-connects, reads, observes B changes [0/100]
+* Client A writes file. Client B opens file. Client A writes file, disconnects. Client B observe changes [0/100]
+* Multiple reader clients and one writer client; A opens, A writes, B opens, A disconnects, C opens, C reads [0/100]
+* Multiple reader clients and one writer client; client A opens, B opens, A writes, B reads, A disconnects, C opens, C reads [0/100]
+* Multiple reader clients and one writer client; client A opens, A writes, A closes, B opens, A disconnects, B reads, B writes, B closes, C opens, B disconnects, C reads, C writes, C closes [0/100]
+
+
+===================
+Test execution logs
+===================
+Commit used: a535e0f071a55ffa8e3e30feaa8ef3080e9b71e6 fogmt
+
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:55:45][Master] Starting test 'CONNECTED -- Observing writes (double write)'
+[2018-03-01 23:55:45][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: dial tcp 10.1.1.9:4321: getsockopt: connection refused
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:55:51][Master] Starting test 'DISCONNECTED -- Client writes file, disconnects; can use DREAD while disconnected'
+[2018-03-01 23:55:51][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:55:59][Master] Starting test 'DISCONNECTED -- Client writes file, disconnects; can use LocalFileExists while disconnected'
+[2018-03-01 23:55:59][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:56:08][Master] Starting test 'DISCONNECTED -- Three Clients - Each client writes and disconnects'
+[2018-03-01 23:56:08][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:56:17][Master] Starting test 'DISCONNECTED -- Three Clients - Each client writes and disconnects'
+[2018-03-01 23:56:17][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:56:17][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:56:19][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:56:28][Master] Starting test 'DISCONNECTED --  Three Clients: A Opens, B Opens, A Writes, B Reads, A disconnects, C Opens, C Reads'
+[2018-03-01 23:56:28][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:56:28][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:56:28][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:56:36][Master] Starting test 'DISCONNECTED --  Three Clients: A Opens, B Opens, A Writes, B Reads, A disconnects, C Opens, C Reads'
+[2018-03-01 23:56:36][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: dial tcp 10.1.1.9:1235: getsockopt: connection refused
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:56:44][Master] Starting test 'Disconnected — One reader/writer client and one writer client[3]'
+[2018-03-01 23:56:44][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:56:44][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:56:45][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:56:53][Master] Starting test 'Disconnected — One reader/writer client and one writer client[2]'
+[2018-03-01 23:56:53][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:02][Master] Starting test 'Disconnected — One reader/writer client and one writer client[3]'
+[2018-03-01 23:57:02][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:57:02][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:57:02][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:11][Master] Starting test 'CONNECTED -- Three Clients Read And Write File'
+[2018-03-01 23:57:11][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:21][Master] Starting test 'CONNECTED -- Three Clients Read And Write File'
+[2018-03-01 23:57:21][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:57:21][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:57:22][Master] Requesting Client B to stop
+[2018-03-01 23:57:22][Master] Requesting Client C to stop
+[2018-03-01 23:57:22][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:31][Master] Starting test 'CONNECTED -- Clients open files and other clients check file exists'
+[2018-03-01 23:57:31][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:57:31][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:57:31][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:39][Master] Starting test 'CONNECTED -- Clients open files and other clients check file exists'
+[2018-03-01 23:57:39][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: dial tcp 10.1.1.9:1235: getsockopt: connection refused
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:47][Master] Starting test 'CONNECTED -- Observing writes (double write)'
+[2018-03-01 23:57:47][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:57:47][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:57:48][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:57:56][Master] Starting test 'CONNECTED -- Two Clients Open Same File for Writing'
+[2018-03-01 23:57:56][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:58:04][Master] Starting test 'CONNECTED -- Two Clients Open Same File for Writing'
+[2018-03-01 23:58:04][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: dial tcp 10.1.1.9:4321: getsockopt: connection refused
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:58:10][Master] Starting test 'CONNECTED -- Simple GlobalFileExists'
+[2018-03-01 23:58:10][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: dial tcp 10.1.1.9:1235: getsockopt: connection refused
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:58:16][Master] Starting test 'CONNECTED -- Simple LocalFileExists'
+[2018-03-01 23:58:16][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:58:22][Master] Starting test 'CONNECTED -- Simple LocalFileExists'
+[2018-03-01 23:58:22][Master] Setting up RPC interface at 10.1.1.6:8484
+[2018-03-01 23:58:22][Client A] Mounting DFS at /tmp/clientA
+[2018-03-01 23:58:23][Master] Requesting Client A to stop
+
+Test ended abruptly with error: unexpected EOF
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:58:30][Master] Starting test 'CONNECTED -- Simple read'
+[2018-03-01 23:58:30][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
+
+===================
+
+[TESTS] Running command [~/master -server 10.1.1.7:4444 -test test.json] on Azure VM
+[2018-03-01 23:58:37][Master] Starting test 'CONNECTED -- Simple write'
+[2018-03-01 23:58:37][Master] Setting up RPC interface at 10.1.1.6:8484
+
+Test ended abruptly with error: listen tcp 10.1.1.6:8484: bind: address already in use
+
