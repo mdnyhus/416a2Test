@@ -742,6 +742,7 @@ func main() {
 	server.Register(dfsServer)
 	l, e := net.Listen("tcp", dfsServer.address)
 	if e != nil {
+		fmt.Println(e)
 		return
 	}
 	go server.Accept(l)
